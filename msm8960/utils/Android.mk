@@ -23,7 +23,8 @@ LOCAL_SRC_FILES += \
 
 LOCAL_CFLAGS += \
      -fno-short-enums \
-     -D_ANDROID_
+     -D_ANDROID_ \
+     -Wno-error \
 
 LOCAL_LDFLAGS += -Wl,--export-dynamic
 
