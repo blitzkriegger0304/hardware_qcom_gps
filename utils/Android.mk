@@ -10,7 +10,8 @@ include $(CLEAR_VARS)
 LOCAL_SHARED_LIBRARIES := \
     libutils \
     libcutils \
-    liblog
+    liblog \
+    libprocessgroup
 
 ifeq ($(filter P% p%,$(TARGET_PLATFORM_VERSION)),)
 LOCAL_SHARED_LIBRARIES += libprocessgroup
