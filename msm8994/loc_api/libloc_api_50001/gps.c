@@ -34,12 +34,12 @@
 
 extern const GpsInterface* get_gps_interface();
 
-const GpsInterface* gps__get_gps_interface(struct gps_device_t* dev)
+const GpsInterface* gps__get_gps_interface(struct gps_device_t* dev __unused)
 {
     return get_gps_interface();
 }
 
-static int open_gps(const struct hw_module_t* module, char const* name,
+static int open_gps(const struct hw_module_t* module, char const* name __unused,
         struct hw_device_t** device)
 {
     struct gps_device_t *dev = (struct gps_device_t *) malloc(sizeof(struct gps_device_t));
