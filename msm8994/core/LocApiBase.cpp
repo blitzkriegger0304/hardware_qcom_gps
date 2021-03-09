@@ -30,6 +30,7 @@
 #define LOG_TAG "LocSvc_LocApiBase"
 
 #include <dlfcn.h>
+#include <inttypes.h>
 #include <LocApiBase.h>
 #include <LocAdapterBase.h>
 #include <log_util.h>
@@ -235,7 +236,7 @@ void LocApiBase::reportPosition(UlpLocation &location,
     // print the location info before delivering
     LOC_LOGV("flags: %d\n  source: %d\n  latitude: %f\n  longitude: %f\n  "
              "altitude: %f\n  speed: %f\n  bearing: %f\n  accuracy: %f\n  "
-             "timestamp: %lld\n  rawDataSize: %d\n  rawData: %p\n  "
+             "timestamp: %" PRId64 "\n  rawDataSize: %d\n  rawData: %p\n  "
              "Session status: %d\n Technology mask: %u",
              location.gpsLocation.flags, location.position_source,
              location.gpsLocation.latitude, location.gpsLocation.longitude,

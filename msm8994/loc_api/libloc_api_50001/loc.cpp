@@ -238,7 +238,7 @@ extern "C" const GpsInterface* get_gps_interface()
             LOC_LOGE("GSS open failed: %s\n", strerror(errno));
         }
         else {
-            LOC_LOGD("GSS open success! CAPABILITIES %0lx\n",
+            LOC_LOGD("GSS open success! CAPABILITIES %0x\n",
                      gps_conf.CAPABILITIES);
         }
         break;
