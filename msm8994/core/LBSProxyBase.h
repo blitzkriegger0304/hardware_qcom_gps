@@ -40,21 +40,21 @@ class ContextBase;
 class LBSProxyBase {
     friend class ContextBase;
     inline virtual LocApiBase*
-        getLocApi(const MsgTask* msgTask,
-                  LOC_API_ADAPTER_EVENT_MASK_T exMask,
-                  ContextBase* context) const {
+        getLocApi(const MsgTask* msgTask __unused,
+                  LOC_API_ADAPTER_EVENT_MASK_T exMask __unused,
+                  ContextBase* context __unused) const {
         return NULL;
     }
 protected:
     inline LBSProxyBase() {}
 public:
     inline virtual ~LBSProxyBase() {}
-    inline virtual void requestUlp(LocAdapterBase* adapter,
-                                   unsigned long capabilities) const {}
+    inline virtual void requestUlp(LocAdapterBase* adapter __unused,
+                                   unsigned long capabilities __unused) const {}
     inline virtual bool hasAgpsExtendedCapabilities() const { return false; }
     inline virtual bool hasCPIExtendedCapabilities() const { return false; }
-    inline virtual void modemPowerVote(bool power) const {}
-    virtual void injectFeatureConfig(ContextBase* context) const {}
+    inline virtual void modemPowerVote(bool power __unused) const {}
+    virtual void injectFeatureConfig(ContextBase* context __unused) const {}
 };
 
 typedef LBSProxyBase* (getLBSProxy_t)();

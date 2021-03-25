@@ -51,31 +51,31 @@ public:
         return false;
     }
 
-    inline virtual bool reportPosition(UlpLocation &location,
-                                       GpsLocationExtended &locationExtended,
-                                       void* locationExt,
-                                       enum loc_sess_status status,
-                                       LocPosTechMask loc_technology_mask) {
+    inline virtual bool reportPosition(UlpLocation &location __unused,
+                                       GpsLocationExtended &locationExtended __unused,
+                                       void* locationExt __unused,
+                                       enum loc_sess_status status __unused,
+                                       LocPosTechMask loc_technology_mask __unused) {
         return false;
     }
-    inline virtual bool reportSv(GpsSvStatus &svStatus,
-                                 GpsLocationExtended &locationExtended,
-                                 void* svExt) {
+    inline virtual bool reportSv(GpsSvStatus &svStatus __unused,
+                                 GpsLocationExtended &locationExtended __unused,
+                                 void* svExt __unused) {
         return false;
     }
-    inline virtual bool reportStatus(GpsStatusValue status) {
+    inline virtual bool reportStatus(GpsStatusValue status __unused) {
         return false;
     }
-    inline virtual void setAdapter(LocAdapterBase* adapter) {}
-    inline virtual void setCapabilities(unsigned long capabilities) {}
-    inline virtual bool reportBatchingSession(GpsExtBatchOptions &options,
-                                              bool active) {
+    inline virtual void setAdapter(LocAdapterBase* adapter __unused) {}
+    inline virtual void setCapabilities(unsigned long capabilities __unused) {}
+    inline virtual bool reportBatchingSession(GpsExtBatchOptions &options __unused,
+                                              bool active __unused) {
         return false;
     }
-    inline virtual bool reportPositions(GpsExtLocation * locations,
-                                        int32_t number_of_locations,
-                                        enum loc_sess_status status,
-                                        LocPosTechMask techMask) {
+    inline virtual bool reportPositions(GpsExtLocation * locations __unused,
+                                        int32_t number_of_locations __unused,
+                                        enum loc_sess_status status __unused,
+                                        LocPosTechMask techMask __unused) {
         return false;
     }
 };
