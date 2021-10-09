@@ -26,6 +26,10 @@
  * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
+
+#define LOG_NDDEBUG 0
+#define LOG_TAG "LocSvc_misc_utils" 
+
 #include <stdio.h>
 #include <string.h>
 #include <log_util.h>

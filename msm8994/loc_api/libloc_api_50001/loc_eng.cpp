@@ -30,6 +30,7 @@
 #define LOG_NDDEBUG 0
 #define LOG_TAG "LocSvc_eng"
 
+#include <inttypes.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -1544,7 +1545,7 @@ struct LocEngInstallAGpsCert : public LocMsg {
         mNumberOfCerts(numberOfCerts), mSlotBitMask(slotBitMask),
         mpData(new DerEncodedCertificate[mNumberOfCerts])
     {
-        for (int i=0; i < mNumberOfCerts; i++) {
+        for (int i=0; i < (int)mNumberOfCerts; i++) {
             mpData[i].data = new u_char[pData[i].length];
             if (mpData[i].data) {
                 memcpy(mpData[i].data, (void*)pData[i].data, pData[i].length);
@@ -1558,7 +1559,7 @@ struct LocEngInstallAGpsCert : public LocMsg {
     }
     inline ~LocEngInstallAGpsCert()
     {
-        for (int i=0; i < mNumberOfCerts; i++) {
+        for (int i=0; i < (int)mNumberOfCerts; i++) {
             if (mpData[i].data) {
                 delete[] mpData[i].data;
             }
@@ -1569,7 +1570,7 @@ struct LocEngInstallAGpsCert : public LocMsg {
         mpAdapter->installAGpsCert(mpData, mNumberOfCerts, mSlotBitMask);
     }
     inline void locallog() const {
-        LOC_LOGV("LocEngInstallAGpsCert - certs=%u mask=%u",
+        LOC_LOGV("LocEngInstallAGpsCert - certs=%zu mask=%u",
                  mNumberOfCerts, mSlotBitMask);
     }
     inline virtual void log() const {
@@ -1641,9 +1642,9 @@ void LocEngReportGpsMeasurement::proc() const {
 void LocEngReportGpsMeasurement::locallog() const {
     IF_LOC_LOGV {
         LOC_LOGV("%s:%d]: Received in GPS HAL."
-                 "GNSS Measurements count: %d \n",
+                 "GNSS Measurements count: %zd \n",
                  __func__, __LINE__, mGpsData.measurement_count);
-        for (int i =0; i< mGpsData.measurement_count && i < GPS_MAX_SVS; i++) {
+        for (int i = 0; i < (int)mGpsData.measurement_count && i < GPS_MAX_SVS; i++) {
                 LOC_LOGV(" GNSS measurement data in GPS HAL: \n"
                          " GPS_HAL => Measurement ID | prn | time_offset_ns | state |"
                          " received_gps_tow_ns| c_n0_dbhz | pseudorange_rate_mps |"
@@ -2533,7 +2534,7 @@ static int loc_eng_set_server(loc_eng_data_s_type &loc_eng_data,
         const char nohost[] = "NONE";
         if (hostname == NULL ||
             strncasecmp(nohost, hostname, sizeof(nohost)) == 0) {
-            url[0] = '\0';
+            url[0] = 0;
         } else {
             len = snprintf(url, sizeof(url), "%s:%u", hostname, (unsigned) port);
         }
@@ -2667,7 +2668,7 @@ int loc_eng_agps_install_certificates(loc_eng_data_s_type &loc_eng_data,
     for (uint32_t slotBitMaskCounter=slotBitMask; slotBitMaskCounter; slotCount++) {
         slotBitMaskCounter &= slotBitMaskCounter - 1;
     }
-    LOC_LOGD("SlotBitMask=%u SlotCount=%u NumberOfCerts=%u",
+    LOC_LOGD("SlotBitMask=%u SlotCount=%u NumberOfCerts=%zu",
              slotBitMask, slotCount, numberOfCerts);
 
     LocEngAdapter* adapter = loc_eng_data.adapter;
@@ -2679,15 +2680,15 @@ int loc_eng_agps_install_certificates(loc_eng_data_s_type &loc_eng_data,
         LOC_LOGE("adapter is null!");
         ret_val = AGPS_CERTIFICATE_ERROR_GENERIC;
     } else if (slotCount < numberOfCerts) {
-        LOC_LOGE("Not enough cert slots (%u) to install %u certs!",
+        LOC_LOGE("Not enough cert slots (%u) to install %zu certs!",
                  slotCount, numberOfCerts);
         ret_val = AGPS_CERTIFICATE_ERROR_TOO_MANY_CERTIFICATES;
     } else {
-        for (int i=0; i < numberOfCerts; ++i)
+        for (int i = 0; i < (int)numberOfCerts; ++i)
         {
             if (certificates[i].length > AGPS_CERTIFICATE_MAX_LENGTH) {
-                LOC_LOGE("cert#(%u) length of %u is too big! greater than %u",
-                        certificates[i].length, AGPS_CERTIFICATE_MAX_LENGTH);
+                LOC_LOGE("cert#(%u) length of %zu is too big! greater than %u",
+                        i, certificates[i].length, AGPS_CERTIFICATE_MAX_LENGTH);
                 ret_val = AGPS_CERTIFICATE_ERROR_GENERIC;
                 break;
             }
